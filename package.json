@@ -1,0 +1,26 @@
+{
+  "name": "archer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd client && npm run dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fenrisulfr-33/Archer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fenrisulfr-33/Archer/issues"
+  },
+  "homepage": "https://github.com/Fenrisulfr-33/Archer#readme",
+  "devDependencies": {
+    "concurrently": "^7.0.0"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.5.0"
+  }
+}

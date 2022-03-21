@@ -1,0 +1,15 @@
+.btn {
+    @apply 
+    h-10
+    w-fit
+    px-2
+    items-center 
+    font-mono
+    font-extrabold
+    text-purple-300 
+    bg-gray-900 
+    rounded-lg
+
+    hover:bg-purple-300 
+    hover:text-gray-800
+}

@@ -1,0 +1,9 @@
+.error {
+    @apply
+    col-span-2
+    text-center
+    font-mono
+    text-lg
+    text-stone-400
+    py-40
+}

@@ -1,0 +1,22 @@
+.article {
+    @apply
+    p-5
+    items-center 
+    space-y-4  
+    border-2 
+    border-purple-300 
+    rounded-xl 
+    shadow-lg 
+    bg-gray-700 
+    hover:shadow-lg
+    hover:shadow-sky-300
+}
+
+.title {
+    @apply
+    text-sky-300 
+    text-opacity-80 
+    font-extrabold
+    text-lg
+    tablet:text-3xl
+}

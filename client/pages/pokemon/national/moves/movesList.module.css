@@ -1,0 +1,6 @@
+.th {
+    @apply
+    py-3 
+    px-1
+    text-center
+}
