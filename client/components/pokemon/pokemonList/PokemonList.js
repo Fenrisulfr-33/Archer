@@ -1,8 +1,7 @@
-import PokemonDexInd from './NationalDexInd';
-import style from './NationalDexList.module.css';
+import PokemonDexInd from './PokemonListInd';
+import style from './PokemonList.module.css';
 
-export default function NationalDexList({ national }){
-    const list = national.map((pokemon) => <PokemonDexInd key={pokemon._id} pokemon={pokemon} />);
+export default function PokemonList({ listData }){
     return (
         <>
             <div className="overflow-x-auto ">
@@ -26,7 +25,7 @@ export default function NationalDexList({ national }){
                                     </tr>
                                 </thead>
                                 <tbody className="text-stone-600 text-sm font-light">
-                                    {list}
+                                    {listData.map((pokemon) => <PokemonDexInd key={pokemon._id} pokemon={pokemon} />)}
                                 </tbody>
                             </table>
                         </div>

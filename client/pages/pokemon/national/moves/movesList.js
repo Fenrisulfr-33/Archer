@@ -1,10 +1,10 @@
-import MoveInd from './moveInd';
+import MoveInd from './MoveInd';
 import style from './movesList.module.css'
 
-export default function MovesList({ moves, levelUp }){
-    const addLevel = levelUp ? true : false;
-    const list = moves.map((move) => <MoveInd key={moves.id} move={move} levelUp={addLevel}/>);
-    
+export default function MovesList({ moves, lvl = false }){
+    const moveHeader = ['Name', 'Type', 'Cat.', 'PP', 'Pwr.', 'Acc.'];
+    lvl ? moveHeader.unshift('Level') : null;
+
     return (
         <>
             <div className="overflow-x-auto ">
@@ -14,17 +14,11 @@ export default function MovesList({ moves, levelUp }){
                             <table className="min-w-max w-full table-auto">
                                 <thead>
                                     <tr className="bg-stone-500 text-stone-300 uppercase text-sm leading-normal">
-                                        {levelUp && <th className={style.th}>Level</th>}
-                                        <th className={style.th}>Name</th>
-                                        <th className={style.th}>Type</th>
-                                        <th className={style.th}>Cat.</th>
-                                        <th className={style.th}>PP</th>
-                                        <th className={style.th}>Pwr.</th>
-                                        <th className={style.th}>Acc.</th>
+                                        {moveHeader.map((header) => (<th className={style.th}>{header}</th>))}
                                     </tr>
                                 </thead>
                                 <tbody className="text-stone-600 text-sm font-light">
-                                    {list}
+                                    {moves.map((move) => <MoveInd key={move._id} move={move} lvl={lvl} />)}
                                 </tbody>
                             </table>
                         </div>

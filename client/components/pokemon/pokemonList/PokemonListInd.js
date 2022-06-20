@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import style from './NationalDexInd.module.css'
+import style from './PokemonListInd.module.css'
 import { colors } from '../variables/typeColors';
 
 export default function PokemonDexInd({ pokemon: { _id, baseStats: { hp, atk, def, spatk, spdef, spd }, name, type, abilities } }){

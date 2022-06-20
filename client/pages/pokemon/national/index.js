@@ -1,4 +1,4 @@
-import NationalDexList from "../../../components/pokemon/nationalDex/NationalDexList";
+import PokemonList from "../../../components/pokemon/pokemonList/PokemonList";
 import SideMenu from "../../../components/nav/SideMenu/SideMenu";
 
 const API_BASE_URL = process.env.BACKEND_URL;
@@ -11,7 +11,7 @@ export default function NationalDex({ national }) {
                 <SideMenu />
             </div>
             <div id='pokemon-content' className='w-4/5'> 
-                    <NationalDexList national={national}/>
+                    <PokemonList listData={national}/>
             </div>
         </div>
     )     

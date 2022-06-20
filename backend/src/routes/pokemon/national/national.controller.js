@@ -28,74 +28,52 @@ const readPokemon = asyncHandler(async (request, response) => {
     } else {
         /*
             Moves Hierachy inside Pokemon object
-            --------------
-            moves {object}
-            |-- gen_one {object}
-            |   |-- rb {object}
-            |   |   |-- levelup [array of objects { id: ##, level: 1 }], id being the move id
-            |   |   |-- machine [array of numbers correlating to move id]
-            |   |   |-- egg [array of numbers correlating to move id]
-            |   |   |-- tutor [array of numbers correlating to move id]
-            |   |-- y {object}
-            |   |   |-- levelup [array of objects { id: ##, level: 1 }], id being the move id
-            |   |   |-- machine [array of numbers correlating to move id]
-            |   |   |-- egg [array of numbers correlating to move id]
-            |   |   |-- tutor [array of numbers correlating to move id]
-            |-- gen_two {object}
-            --------------
-            ** This contiunes the same format through generation eight **
-        */
 
-        /*
-            Time Complexity: O(n) - As generations are added and moves are added the Time will increase but the functionality will always stay the same
-            Space Complexity: ** Original Object plus more ** - figure this out
+            --------------
+            <Move Name>: {
+                <game><move type>: <move type>
+            },
+            <Move Name>: {
+                <game><move type>: <move type>
+            }
         */
-        for (const generation in pokemon.moves) {
-            for (const game in pokemon.moves[generation]) {
-                for (const type in pokemon.moves[generation][game]){
-                    if (type === 'levelUp') { // Levelup's array is formatted with objects { id:##, level: 1 }
-                        /*
-                            For each move in a pokemons document,
-                            go through and add move name, power, accuracy, and other variables 
-                            to display on a singular pokemon page via the national/:id page
-                            
-                            The goal is on one Pokemon page you can select any generation and see the moves in semi detail, with links to the
-                            moves database singular page if you want to see more
-                        */
-                        pokemon.moves[generation][game][type].forEach((move) => {
-                            const found = moves[move.id - 1]; // Get the data from the Moves Collection
-                            // Create key and values for the new move
-                            move['name'] = found.name.english;
-                            move['type'] = found.type;
-                            move['category'] = found.category;
-                            move['pp'] = found.pp;
-                            move['accuracy'] = found.accuracy;
-                            move['power'] = found.power;
-                        })
-                    } else {
-                        const detailMoves = []; // create the new array
-                        // call the other three arrays of just move numbers, egg, tutor, and machine
-                        pokemon.moves[generation][game][type].forEach((move) => {
-                            const foundMove = moves[move - 1]; // Get the data from the Moves Collection
-                            // Create a new object to replace the Number
-                            const { name, type, category, pp, accuracy, power, } = foundMove;
-                            const newMove = {
-                                id: move - 1,
-                                name: name.english,
-                                type,
-                                category,
-                                pp,
-                                accuracy,
-                                power
-                            }
-                            detailMoves.push(newMove); // Found it easiest to push the new objects into a new array
-                            
-                        })
-                        pokemon.moves[generation][game][type] = detailMoves; // Change the old moves to the new Array
-                    }
+       const initialMoves = {
+           lvl: [],
+           egg: [],
+           record: [],
+           machine: [],
+           tutor: [],
+       };
+        for (const move in pokemon.moves) {
+            if (pokemon.moves[move].hasOwnProperty('sword-shield-egg')) {
+                const found = moves.find((dexMove) => dexMove.name.english === move); 
+                initialMoves.egg.push(found)
+            }
+            if (pokemon.moves[move].hasOwnProperty('sword-shield-lvl')) {
+                const found = moves.find((dexMove) => dexMove.name.english === move); 
+                const rep = {
+                    ...found,
+                    level: pokemon.moves[move]['sword-shield-lvl']
                 }
+                initialMoves.lvl.push(rep)
+            }
+            if (pokemon.moves[move].hasOwnProperty('sword-shield-record')) {
+                const found = moves.find((dexMove) => dexMove.name.english === move); 
+                initialMoves.record.push(found)
+            }
+            if (pokemon.moves[move].hasOwnProperty('sword-shield-machine')) {
+                const found = moves.find((dexMove) => dexMove.name.english === move); 
+                initialMoves.machine.push(found);
+            }
+            if (pokemon.moves[move].hasOwnProperty('sword-shield-tutor')) {
+                const found = moves.find((dexMove) => dexMove.name.english === move); 
+                initialMoves.tutor.push(found);
             }
         }
+        pokemon.moves = initialMoves;
+        /*
+            Time Complexity: O(n) - The only way the algorithm takes longer is if the pokemon moves are added or games
+        */
         response.status(200).json(pokemon);
     }
 });
